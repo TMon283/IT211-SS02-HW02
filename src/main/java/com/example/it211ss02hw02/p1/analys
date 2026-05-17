@@ -1,0 +1,8 @@
+- HTTP POST: Dùng để tạo mới tài nguyên. POST không idempotent, nghĩa là gửi nhiều lần cùng một
+request có thể tạo ra nhiều bản ghi khác nhau.
+- HTTP PUT: Dùng để cập nhật hoặc thay thế tài nguyên hiện có. PUT là idempotent,
+tức là gửi nhiều lần cùng một request sẽ cho ra cùng một kết quả, không tạo thêm bản ghi mới.
+-> Trong đoạn code hiện tại đang dùng POST cho cả tạo mới và cập nhật. Khi client gửi yêu cầu cập nhật
+với một id không tồn tại, logic lại tạo mới bản ghi. Điều này dẫn đến trùng lặp dữ liệu và phá vỡ
+quy tắc nghiệp vụ. Ngoài ra, vì POST không idempotent, việc người dùng bấm cập nhật nhiều lần nhanh chóng
+có thể tạo ra nhiều bản ghi giống nhau.
